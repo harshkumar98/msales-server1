@@ -24,6 +24,7 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
+          npm install -g nodemon
           npm run build --if-present
 
       - name: Upload artifact for deployment job
@@ -56,4 +57,4 @@ jobs:
 
       - name: 'Post Deploy'
         run: |
-          sudo npm start
+          npm start
