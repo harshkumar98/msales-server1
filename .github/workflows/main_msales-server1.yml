@@ -21,6 +21,11 @@ jobs:
         with:
           node-version: '18.x'
 
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run build --if-present
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -51,5 +56,4 @@ jobs:
 
       - name: 'Post Deploy'
         run: |
-          npm install
-          npm start
+          sudo npm start
