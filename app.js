@@ -1,9 +1,8 @@
 const express= require("express");
 const app = express();
 const bodyparser = require('body-parser')
-const port = 3001;
 const mysql = require("./DbConnect").connection;
-
+const port = process.env.port || process.env.PORT || 3001;
 
 app.use(bodyparser.urlencoded({extended: false}))
 app.use(bodyparser.json())
@@ -12,7 +11,6 @@ app.post("/login", (req, res) => {
 
     let user  = req.param('user',null);
     let password = req.param('password',null);
-    var port = process.env.port || process.env.PORT || 3001;
     //res.send(phone + "Hello");
     let qry = "select * from user where username ='" + user + "' AND password='" + password + "'";
     
