@@ -57,4 +57,6 @@ jobs:
 
       - name: 'Post Deploy'
         run: |
+          npm config set user 0
+          npm config set unsafe-perm true
           npm start
