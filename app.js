@@ -12,6 +12,7 @@ app.post("/login", (req, res) => {
 
     let user  = req.param('user',null);
     let password = req.param('password',null);
+    var port = process.env.port || process.env.PORT || 3001;
     //res.send(phone + "Hello");
     let qry = "select * from user where username ='" + user + "' AND password='" + password + "'";
     
