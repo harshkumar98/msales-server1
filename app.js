@@ -1,7 +1,7 @@
 const express= require("express");
 const app = express();
 const bodyparser = require('body-parser')
-const mysql = require("./DbConnect").connection;
+//const mysql = require("./DbConnect").connection;
 const port = process.env.port || process.env.PORT || 3001;
 
 app.use(bodyparser.urlencoded({extended: false}))
