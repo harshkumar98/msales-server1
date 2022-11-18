@@ -78,9 +78,10 @@ app.post("/searchstudent", (req, res) => {
 
 app.listen(port , (err) =>{
     if (err){
+        console.log ("throwing at you now$#&$#")
         throw err;
     }
     else 
-    console.log ("Server is running at port " ,port);
+        console.log ("Server is running at port " ,port);
 });
 
