@@ -54,9 +54,3 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7907F20831DB4A79A66D0A9064FEA2FF }}
           package: .
-
-      - name: 'Post Deploy'
-        run: |
-          npm config set user 0
-          npm config set unsafe-perm true
-          npm start
