@@ -11,7 +11,7 @@ app.post("/login", (req, res) => {
 
     let user  = req.param('user',null);
     let password = req.param('password',null);
-    //res.send(phone + "Hello");
+    
     let qry = "select * from user where username ='" + user + "' AND password='" + password + "'";
     
     mysql.query(qry, (err, results) => {
