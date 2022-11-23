@@ -1,8 +1,8 @@
 const express= require("express");
 const app = express();
 const bodyparser = require('body-parser')
-//const mysql = require("./DbConnect").connection;
-const port = process.env.port || process.env.PORT || 8080;
+const mysql = require("./DbConnect").connection;
+const port = process.env.port || process.env.PORT || 3001;
 
 app.use(bodyparser.urlencoded({extended: false}))
 app.use(bodyparser.json())
@@ -78,7 +78,6 @@ app.post("/searchstudent", (req, res) => {
 
 app.listen(port , (err) =>{
     if (err){
-        console.log ("throwing at you now$#&$#")
         throw err;
     }
     else 
