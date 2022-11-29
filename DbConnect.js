@@ -12,6 +12,6 @@ connection.connect((err) => {
     console.log('Error connecting to Db');
     return;
   }
-  console.log('Connection established');
+  console.log('Connection established successfully');
 });
 module.exports.connection = connection;
