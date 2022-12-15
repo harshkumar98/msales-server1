@@ -29,58 +29,145 @@ app.post("/login", (req, res) => {
 
 });
 
-app.get("/addstudent", (req, res) => {
+//change password api
 
-    const { name, phone, email } = req.query
-    let qry = "select * from student where email=? or phnumber=?";
-    mysql.query(qry, [email, phone], (err, results) => {
+const allowOnlyPost = (req, res, next) => {
+    if (req.method !== 'POST') {
+        return res.status(405).json({response:"405",status:'Failed',message:"Method Not Allowed"});
+    }
+    next()
+}
+
+app.use("/changePassword",(req, res) => {
+    
+    let user  = req.param('user',null);
+    let password = req.param('password',null);
+    let newPassword = req.param('newPassword',null);
+    let cnf_newPassword = req.param('cnf_newPassword',null);
+
+    if(password == newPassword){
+        console.log("heloo");
+        res.status(201).json({response:"201",status:'Failed',message:"Old and New Password cannot be same"});
+    }
+    else if(newPassword != cnf_newPassword){
+        res.status(201).json({response:"202",status:'Failed',message:"New Password and confirm new Password does not match"});
+    }
+    else{
+    let qry = "select * from user where username ='" + user + "' AND password = '" + password + "'";
+    mysql.query(qry, (err, results) => {
+        
         if (err)
-            throw err
+            res.status(500).json({response:"500",status:'Error',message:"Internal Server Error"});
         else {
             if (results.length > 0) {
-                res.send("Data Already Present");
-            } else {
-
-                // insert query
-                let qry2 = "insert into student values(?,?,?)";
-                mysql.query(qry2, [phone, name,email], (err, results) => {
-                    if (results.affectedRows > 0) {
-                        res.send("Data Addded Successfully")
+                let qry1 = "UPDATE user SET password ='" + newPassword + "'" + "where username =" + "'" + user + "'";
+                mysql.query(qry1, (err, results) => {
+                    if (err)
+                        res.status(500).json({response:"500",status:'Error',message:"Internal Server Error"});
+                    else {
+                        res.status(200).json({response:"200",status:'success',message:"Password Updated Successfully"});
                     }
                 })
-            }
-        }
-    })
-});
-
-app.post("/searchstudent", (req, res) => {
-
-    let phone  = req.param('phone',null);
-    //res.send(phone + "Hello");
-    let qry = "select * from student where phnumber = ?";
-    
-    mysql.query(qry, [phone], (err, results) => {
-        //res.send(results);
-        //res.send(phone)
-        if (err)
-            throw err
-        else {
-            if (results.length > 0) {
-                //console.log(results);
-                res.status(200).send(results);
             }else{
-                res.status(404).send("No data Found")
+                res.status(404).json({response:"404",status:'Failed',message:"Invalid Credential"});
             }
         }
     });
-
+    }
 });
+
+//api for menu
+app.post("/dashboard",(req, res) => {
+    let userId  = req.param('userId',null);
+    let qry = "select * from user where userId = '" + userId + "'";
+    mysql.query(qry, (err, results) => {
+        if (err)
+            res.status(500).json({response:"500",status:'Error',message:"Internal Server Error"});
+        else {
+            if (results.length>0) {
+                qry1="select userId,userName from user where userId ='" + userId + "'";
+                mysql.query(qry1, (err, result) => {
+                    //res.status(200).json({response:"200",status:'success',message:"login Successful",user:result});
+                    if(result.length>0){
+                    qry2 = "SELECT role.roleId ,role.roleName from user , role, user_role where user.userId = user_role.userId and role.roleId = user_role.roleId and user.userId = '" + userId + "'" ;
+                    mysql.query(qry2, (err, result2) => {
+                        if (err)
+                        res.status(500).json({response:"500",status:'Error',message:"Internal Server Error"});   
+                        else {
+                        if (result2.length>0) {
+                        qry3 = "select m.menuId,m.menuName from menu m join role_menu rm on rm.menuId = m.menuId;"
+                        mysql.query(qry3, (err, result3) => {
+                            if (err)
+                        res.status(500).json({response:"500",status:'Error',message:"Internal Server Error"});   
+                        else {
+                        if (result3.length>0) {
+                            res.status(200).json({response:"200",status:'success',message:"login Successful",data:{userdata:result,roledata:result2,menudata:result3}});
+                        }
+                    }
+                        })
+                    }
+                    }})
+            }})
+            }else{
+                res.status(404).json({response:"404",status:'Failed',message:"Invalid Credential"});
+            }
+        }
+    });
+});
+//user_details api
+
+app.use("/userDetails",allowOnlyPost,(req, res) => {
+    let userId  = req.param('userId',null);
+    qry = "SELECT user.username ,role.roleName from user , role, user_role where user.userId = user_role.userId and role.roleId = user_role.roleId and user.userId = '" + userId + "'" ;
+
+    mysql.query(qry, (err, results) => {
+        if (err)
+            res.status(500).json({response:"500",status:'Error',message:"Internal Server Error"});
+        else {
+            if (results.length > 0) {
+                res.status(200).json({response:"200",status:'success',data:results});
+            }else{
+                res.status(404).json({response:"404",status:'Failed',message:"Invalid Credential"});
+            }
+        }
+    });
+});
+
+//packageInfo API
+app.use("/packageInfo", (req, res) => {
+    let qry = "select * from package_info "; 
+    mysql.query(qry, (err, results) => { 
+    if (err)
+        res.status(500).json({response:"500",status:'Error',message:"Internal Server Error"});
+    else {
+            if (results.length > 0) {
+                 res.status(200).json({response:"200",status:'success',data:results});
+            }else{
+                 res.status(404).json({response:"404",status:'Failed',message:"Invalid Credential"});
+            }
+         }
+    })
+     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.listen(port , (err) =>{
     if (err){
         throw err;
     }
     else 
-        console.log ("Server is running at port " ,port);
+    console.log ("Server is running at port " ,port);
 });
 

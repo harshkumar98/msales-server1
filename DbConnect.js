@@ -1,10 +1,10 @@
 const mysql = require('mysql');
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'nodejs_ch1',
-  
+
+var connection = mysql.createConnection({
+  host: "msaleazure.mysql.database.azure.com", 
+  user: "azureadmin@msaleazure", 
+  password: "azsql@123", 
+  database: "msale", port: 3306, 
 });
 // Checking the database connection
 connection.connect((err) => {
