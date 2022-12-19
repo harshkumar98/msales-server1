@@ -1,0 +1,66 @@
+[
+
+    {
+    
+        "packageId": 1,
+    
+        "packageName": "Combo Offer-ROI"
+    
+      },
+    
+      {
+    
+        "packageId": 2,
+    
+        "packageName": "Combo Offer-South"
+    
+      },
+    
+      {
+    
+        "packageId": 3,
+    
+        "packageName": "LeafLet for ROI"
+    
+      },
+    
+      {
+    
+        "packageId": 4,
+    
+        "packageName": "LeafLet for South"
+    
+      },
+    
+      {
+    
+       "packageId": 5,
+    
+        "packageName": "Truechoice Packages"
+    
+      },
+    
+      {
+    
+        "packageId": 6,
+    
+        "packageName": "Alacarte Packages"
+    
+      },
+    
+      {
+    
+        "packageId": 7,
+    
+        "packageName": "Others"
+    
+      },
+    
+      {
+        "packageId": 8,
+    
+        "packageName": "Others"
+    
+      }
+    
+    ]

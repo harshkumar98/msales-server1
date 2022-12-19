@@ -1,0 +1,42 @@
+[
+	{
+		"menuId" : 1,
+		"menuName" : "EVD information"
+	},
+	{
+		"menuId" : 2,
+		"menuName" : "customer information"
+	},
+	{
+		"menuId" : 3,
+		"menuName" : "primary account registration"
+	},
+	{
+		"menuId" : 4,
+		"menuName" : "multi tv account registration"
+	},
+	{
+		"menuId" : 5,
+		"menuName" : "customer recharge"
+	},
+	{
+		"menuId" : 6,
+		"menuName" : "re push order"
+	},
+	{
+		"menuId" : 7,
+		"menuName" : "heavy refresh"
+	},
+	{
+		"menuId" : 8,
+		"menuName" : "modify/migrate package"
+	},
+	{
+		"menuId" : 9,
+		"menuName" : "dash board"
+	},
+	{
+		"menuId" : 10,
+		"menuName" : "package information"
+	}
+]
