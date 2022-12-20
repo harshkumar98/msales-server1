@@ -9,24 +9,24 @@ app.use(bodyparser.urlencoded({extended: false}))
 app.use(bodyparser.json())
 
 app.post("/login", (req, res) => {
-
-    let user  = req.param('user',null);
-    let password = req.param('password',null);
+    res.status(200).json({response:200, message:"Login Successful"})
+    // let user  = req.param('user',null);
+    // let password = req.param('password',null);
     
-    let qry = "select * from user where username ='" + user + "' AND password='" + password + "'";
+    // let qry = "select * from user where username ='" + user + "' AND password='" + password + "'";
     
-    mysql.query(qry, (err, results) => {
+    // mysql.query(qry, (err, results) => {
 
-        if (err)
-            res.status(500).send("DB is not available!")
-        else {
-            if (results.length > 0) {
-                res.status(200).send(results);
-            }else{
-                res.status(404).send("Email Or Password InCorrect")
-            }
-        }
-    });
+    //     if (err)
+    //         res.status(500).send("DB is not available!")
+    //     else {
+    //         if (results.length > 0) {
+    //             res.status(200).send(results);
+    //         }else{
+    //             res.status(404).send("Email Or Password InCorrect")
+    //         }
+    //     }
+    // });
 
 });
 
